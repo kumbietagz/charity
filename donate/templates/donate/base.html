@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Raleway:300,400,500,600,700|Crete+Round:400i" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/bootstrap.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/style.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/dark.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/font-icons.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/animate.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/magnific-popup.css' %}" type="text/css" />
+
+
+	<!-- Bootstrap File Upload CSS -->
+	<link rel="stylesheet" href="{% static 'donate/css/components/bs-filestyle.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/components/select-boxes.css' %}" type="text/css" />
+	<!-- Bootstrap Select CSS -->
+	<link rel="stylesheet" href="{% static 'donate/css/components/bs-select.css' %}" type="text/css" />
+	<!-- Date & Time Picker CSS -->
+	<link rel="stylesheet" href="{% static 'donate/css/components/datepicker.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/css/components/timepicker.css' %}" type="text/css" />
+
+    <!-- NonProfit Demo Specific Stylesheet -->
+
+	<link rel="stylesheet" href="{% static 'donate/theme/css/fonts.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'donate/theme/nonprofit.css' %}" type="text/css" />
+	<!-- / -->
+
+	<!-- Range Slider CSS -->
+	<link rel="stylesheet" href="{% static 'donate/css/components/ion.rangeslider.css' %}" type="text/css" />
+
+	<!-- Star Rating CSS -->
+	<link rel="stylesheet" href="{% static 'donate/css/components/bs-rating.css' %}" type="text/css" />
+
+	<!-- Bootstrap Switch CSS -->
+	<link rel="stylesheet" href="{% static 'donate/css/components/bs-switches.css' %}" type="text/css" />
+
+
+
+	<link rel="stylesheet" href="{% static 'donate/css/responsive.css' %}" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Document Title
+	============================================= -->
+	<title>{% block titlebase %}{% endblock %}</title>
+
+</head>
+
+<body class="stretched {% block side %}
+{% endblock %}">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+        {% block content %}
+        {% endblock %}
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="{% static 'donate/js/jquery.js' %}"></script>
+	<script src="{% static 'donate/js/plugins.js' %}"></script>
+
+
+	<!-- Bootstrap File Upload Plugin -->
+	<script src="{% static 'donate/js/components/bs-filestyle.js' %}"></script>
+
+	<!-- Select-Boxes Plugin -->
+	<script src="{% static 'donate/js/components/select-boxes.js' %}"></script>
+
+	<!-- Bootstrap Select Plugin -->
+	<script src="{% static 'donate/js/components/bs-select.js' %}"></script>
+
+	<!-- Date & Time Picker JS -->
+	<script src="{% static 'donate/js/components/moment.js' %}"></script>
+	<script src="{% static 'donate/js/components/datepicker.js' %}"></script>
+	<script src="{% static 'donate/js/components/timepicker.js' %}"></script>
+
+	<!-- Include Date Range Picker -->
+	<script src="{% static 'donate/js/components/daterangepicker.js' %}"></script>
+
+	<!-- Range Slider Plugin -->
+	<script src="{% static 'donate/js/components/rangeslider.min.js' %}"></script>
+
+	<!-- Star Rating Plugin -->
+	<script src="{% static 'donate/js/components/star-rating.js' %}"></script>
+
+	<!-- Select-Splitter Plugin -->
+	<script src="{% static 'donate/js/components/selectsplitter.js' %}"></script>
+
+	<!-- TinyMCE Plugin -->
+	<script src="{% static 'donate/js/components/tinymce/tinymce.min.js' %}"></script>
+
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="{% static 'donate/js/functions.js' %}"></script>
+
+	<script>
+
+		jQuery(document).ready( function(){
+
+			jQuery(".range_01").ionRangeSlider({
+				grid: true,
+				min: 0,
+				max: 70,
+				from: {% block age%} {% endblock%},
+				prefix: "Age ",
+				max_postfix: "+"
+			});
+
+            jQuery(".range_02").ionRangeSlider({
+				grid: true,
+				min: 1,
+				max: 5,
+				from: 3,
+				prefix: "rate ",
+				max_postfix: "+"
+			});
+
+			jQuery(".select-tags").select2({
+				tags: true,
+				placeholder: "Add Values and Press Enter"
+			});
+
+			jQuery('.datetimepicker1').datetimepicker();
+
+			jQuery('.selectsplitter').selectsplitter();
+
+			tinymce.init({
+				selector: '.textarea-message',
+				menubar: false,
+				setup: function(editor) {
+					editor.on('change', function(e) {
+						editor.save();
+					});
+				}
+			});
+
+		});
+
+
+	</script>
+
+</body>
+</html>

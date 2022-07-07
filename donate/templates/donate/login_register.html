@@ -1,0 +1,127 @@
+{% extends 'donate/base.html' %}
+{% load static %}
+{% block content %}
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap">
+				<style>
+					#logo{height:80px}
+					#logo img {
+						display:inline;
+					}
+				</style>
+				             					<!-- Logo
+					============================================= -->
+					<div class="center bottommargin">
+					<div id="logo" class="center nobottomborder" style="float:none ">
+						<a href="{% url 'donate:index' %}" class="standard-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="foundation Logo"></a>
+						<a href="{% url 'donate:index' %}" class="retina-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="foundation Logo"></a>
+					</div><!-- #logo end -->
+				</div>
+
+				<div class="container clearfix">
+
+					<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+
+						<ul class="tab-nav tab-nav2 center clearfix">
+							<li class="inline-block"><a href="#tab-login">Login</a></li>
+							<li class="inline-block"><a href="#tab-register">Register</a></li>
+						</ul>
+						{{message}}
+
+						<div class="tab-container">
+
+							<div class="tab-content clearfix" id="tab-login">
+								<div class="card nobottommargin">
+									<div class="card-body" style="padding: 40px;">
+										<form id="login-form" name="login-form" class="nobottommargin" action="{% url 'donate:index' %}" method="post">
+
+											
+											<h3>Login to your Account</h3>
+											{% csrf_token %}
+											<div class="col_full">
+												<label for="login-form-username">Username:</label>
+												<input type="text" id="login-form-username" name="username" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="login-form-password">Password:</label>
+												<input type="password" id="login-form-password" name="password" value="" class="form-control" />
+											</div>
+
+											<div class="col_full nobottommargin">
+												<button class="button button-3d nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+												<a href="#" class="fright">Forgot Password?</a>
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-content clearfix" id="tab-register">
+								<div class="card nobottommargin">
+									<div class="card-body" style="padding: 40px;">
+										<h3>Register for an Account</h3>
+
+										<form id="register-form" name="register-form" class="nobottommargin" action="{% url 'donate:index' %}" method="post">
+											
+											{% csrf_token %}
+											<div class="col_full">
+												<label for="register-form-name">First Name:</label>
+												<input type="text" id="register-form-name" name="first" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-name">Last Name:</label>
+												<input type="text" id="register-form-name" name="last" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-email">Email Address:</label>
+												<input type="text" id="register-form-email" name="email" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-username">Choose a Username:</label>
+												<input type="text" id="register-form-username" name="username" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-phone">Phone:</label>
+												<input type="text" id="register-form-phone" name="phone" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-password">Choose Password:</label>
+												<input type="password" id="register-form-password" name="password" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="register-form-repassword">Re-enter Password:</label>
+												<input type="password" id="register-form-repassword" name="repassword" value="" class="form-control" />
+											</div>
+
+											<div class="col_full nobottommargin">
+												<button class="button button-3d nomargin" id="register-form-submit" name="register-form-submit" value="register">Register Now</button>
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+{% endblock %}

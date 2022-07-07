@@ -1,0 +1,165 @@
+{% extends 'donate/side.html' %}
+
+
+{% block logo %}<h3>Student</h3>{% endblock %}
+{% block nav %}
+<li><a href="{% url 'donate:index' %}"><div>Profile</div></a></li>
+<li><a href="{% url 'donate:index' %}"><div>Funds</div></a></li>
+<div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
+<li><a href="{% url 'donate:index' %}"><div>Logout</div></a></li>
+{% endblock %}
+
+{% block body %}
+
+
+<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap bg-light">
+
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-10 col-md-10">
+							<div class="card shadow-sm">
+								<div class="card-header">
+									<h4 class="mb-0">Edit Claim</h4>
+								</div>
+								<div class="card-body">
+
+									<div class="form-windget">
+
+										<!--<div class="form-result"></div>
+
+										<div class="form-process css3-spinner">
+											<div class="css3-spinner-double-bounce1"></div>
+											<div class="css3-spinner-double-bounce2"></div>
+										</div>-->
+
+										<form class="nobottommargin" id="" name="template-contactform" action method="post" enctype="multipart/form-data">
+											
+											{% csrf_token %}
+											<div class="row">
+                                                <div class=" col-md-12 col-lg-6 bottommargin-sm">
+                                                    <label for="template-contactform-name">First Name<small class="text-danger">*</small></label>
+                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                </div>
+                                                <div class=" col-md-12 col-lg-6 bottommargin-sm">
+                                                    <label for="template-contactform-name">Last Name<small class="text-danger">*</small></label>
+                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-12 bottommargin-sm">
+                           
+                                                    <label  for="template-contactform-upload">Image:</label><br>
+                                                    <div id="event_picture" class="kv-file-content">
+                                                    <img src="{{ company.logo.url  }}" >
+                                                    </div>
+                                                    <input id="id_picture" type="file" name="logo" value="" class="file file-loading" data-show-preview="true" >
+                                                    
+                                                       
+                                                </div>
+
+                                                <div class="form-group col-lg-6 col-md-12">
+                                                    <label for="template-contactform-name">Date of Birth:<small class="text-danger">*</small></label>
+                                                    <input type="date" id="template-contactform-name" name="start" value="" class="form-control required"  />
+                                                    </div>
+
+                                                <div class=" col-md-12 col-lg-6 bottommargin-sm">
+                                                    <label for="template-contactform-name">Phone:<small class="text-danger">*</small></label>
+                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                </div>
+                                                <div class=" col-md-12 col-lg-6 bottommargin-sm">
+                                                    <label for="template-contactform-name">Email:<small class="text-danger">*</small></label>
+                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                </div>
+
+												<div class="col-12 bottommargin-sm">
+													<label for="template-contactform-budget">Claimed Amount:</label>
+													<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text">$</span>
+													</div>
+
+
+													<input id="template-contactform-budget" name="claim" value='{{claims.claimed}}' type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Enter Claimed Amount" required>
+														<div class="input-group-append">
+															<span class="input-group-text">.00</span>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-12 bottommargin-sm">
+													<label for="template-contactform-phone">Tariff Code:</label>
+													<input type="number" id="template-contactform-phone" name="tariff" value='{{claims.tariff}}'class="form-control" placeholder="Enter Practice Number" required/>
+												</div>
+
+												<div class="col-12 bottommargin-sm">
+													<label for="template-contactform-phone">Practice Number:</label>
+													<input type="number" id="template-contactform-phone" name="practice" value='{{claims.practice}}'class="form-control" placeholder="Enter Practice Number" required/>
+												</div>
+												<div class="col-12 bottommargin-sm">
+													<label for="template-contactform-phone">Member Number:</label>
+													<input type="number" id="template-contactform-phone" name="member" value='{{claims.member}}'class="form-control" placeholder="Enter Practice Number" required/>
+												</div>
+
+												<div class="col-12 bottommargin-sm">
+													<label for="template-contactform-default-select">Description:</label>
+													<select id="template-contactform-default-select" value='{{claims.description}}' name="description" class="form-control" required>
+														<option value="" disabled >Select Description</option>
+														<option value="GYNAECOLOGY/OBSTETRICS" {% if claims.description == 'GYNAECOLOGY/OBSTETRICS' %}selected {% endif %}>GYNAECOLOGY/OBSTETRICS</option>
+														<option value="PAEDIATRICIANS"  {% if claims.description == 'PAEDIATRICIANS' %}selected {% endif %} >PAEDIATRICIANS</option>
+													</select>
+												</div>
+												<div class="col-12 bottommargin-sm">
+													<label for="template-contactform-age" class="mb-3 clearfix">Select Patient Age:</label>
+													<input id="template-contactform-age" value='40'name="age" class="range_01 input-range-slider" required/>
+												</div>
+                                                <div class="col-12 bottommargin-sm">
+													<label for="template-contactform-age" class="mb-3 clearfix">Select Patient Age:</label>
+													<input id="template-contactform-age" value='13' name="age" class="range_02 input-range-slider" required/>
+												</div>
+
+												<div class="col-12 bottommargin-sm">
+													<label>Gender:</label>
+													<div class="form-check">
+														<input class="form-check-input" type="radio" name="gender" id="template-contactform-radio-label2" value="M" {% if claims.gender == 'M' %}checked {% endif %}>
+														<label class="form-check-label" for="template-contactform-radio-label2">Male</label>
+													</div>
+													<div class="form-check">
+														<input class="form-check-input" type="radio" name="gender" id="template-contactform-radio-label3" value="F" {% if claims.gender == 'F' %}checked {% endif %}>
+														<label class="form-check-label" for="template-contactform-radio-label3">Female</label>
+													</div>
+												</div>												
+
+												<div class="col-12 hidden">
+													<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" />
+												</div>
+												<div class="col-12">
+													<button type="submit" name="template-contactform-submit" class="btn btn-secondary btn-block btn-lg">Update</button>
+												</div>
+
+												<input type="hidden" name="prefix" value="template-contactform-">
+
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+
+
+
+
+{% endblock %}
+{% block age%}53{% endblock%}

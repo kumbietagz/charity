@@ -1,0 +1,54 @@
+
+{% extends 'donate/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Header
+		============================================= -->
+		<header id="header" class="clearfix static-sticky">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="Foundation Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="Foundation Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="d-lg-flex d-xl-flex justify-content-xl-between justify-content-lg-between fnone with-arrows">
+
+
+						<ul class="align-self-start">
+							<li><span class="menu-bg col-auto align-self-start d-flex"></span></li>
+							<li class="active"><a href="{% url 'donate:index' %}"><div>Home</div></a></li>
+							<li><a href="{% url 'donate:about' %}"><div>About</div></a></li>
+							
+							<li><a href="{% url 'donate:contact' %}"><div>Contact</div></a></li>
+						</ul>
+
+						<ul class="not-dark align-self-end">
+							<li><a href="#" class="header-button"><div>Signup</div></a>
+								<ul>
+									<li><a href="#"><div>Student</div></a></li>
+									<li><a href="#"><div>Sponsor</div></a></li>
+								</ul>
+							</li>
+						</ul>
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+{% block body %}
+{% endblock %}
+{% endblock %}
