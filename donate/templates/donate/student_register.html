@@ -27,49 +27,23 @@
 					<div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
 
 						<ul class="tab-nav tab-nav2 center clearfix">
+                            <li class="inline-block"><a href="#tab-register">Register</a></li>
 							<li class="inline-block"><a href="#tab-login">Login</a></li>
-							<li class="inline-block"><a href="#tab-register">Register</a></li>
+							
 						</ul>
 						{{message}}
 
 						<div class="tab-container">
 
-							<div class="tab-content clearfix" id="tab-login">
+                            
+                            <div class="tab-content clearfix" id="tab-register">
 								<div class="card nobottommargin">
 									<div class="card-body" style="padding: 40px;">
-										<form id="login-form" name="login-form" class="nobottommargin" action="{% url 'donate:login' %}" method="post">
-
-											
-											<h3>Login to your Account</h3>
+										<form id="login-form" name="login-form" class="nobottommargin" action="{% url 'donate:student-register' %}" method="post">
 											{% csrf_token %}
-											<div class="col_full">
-												<label for="login-form-username">Username:</label>
-												<input type="text" id="login-form-username" name="username" value="" class="form-control" />
-											</div>
-
-											<div class="col_full">
-												<label for="login-form-password">Password:</label>
-												<input type="password" id="login-form-password" name="password" value="" class="form-control" />
-											</div>
-
-											<div class="col_full nobottommargin">
-												<button class="button button-3d nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-												<a href="#" class="fright">Forgot Password?</a>
-											</div>
-
-										</form>
-									</div>
-								</div>
-							</div>
-
-							<div class="tab-content clearfix" id="tab-register">
-								<div class="card nobottommargin">
-									<div class="card-body" style="padding: 40px;">
-										<h3>Register for an Account</h3>
-
-										<form id="register-form" name="register-form" class="nobottommargin" action="{% url 'donate:register' %}" method="post">
 											
-											{% csrf_token %}
+											<h3>Register to your Account</h3>
+		
 											<div class="col_full">
 												<label for="register-form-name">First Name:</label>
 												<input type="text" id="register-form-name" name="first" value="" class="form-control" />
@@ -113,6 +87,35 @@
 									</div>
 								</div>
 							</div>
+
+
+                            <div class="tab-content clearfix" id="tab-login">
+								<div class="card nobottommargin">
+									<div class="card-body" style="padding: 40px;">
+										<h3>Login for an Account</h3>
+										<form id="register-form" name="register-form" class="nobottommargin" action="{% url 'donate:student-login' %}" method="post">
+		
+											{% csrf_token %}
+											<div class="col_full">
+												<label for="login-form-username">Username:</label>
+												<input type="text" id="login-form-username" name="username" value="" class="form-control" />
+											</div>
+
+											<div class="col_full">
+												<label for="login-form-password">Password:</label>
+												<input type="password" id="login-form-password" name="password" value="" class="form-control" />
+											</div>
+
+											<div class="col_full nobottommargin">
+												<button class="button button-3d nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+												<a href="#" class="fright">Forgot Password?</a>
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+
 
 						</div>
 

@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Student(models.Model):
 
@@ -12,21 +13,21 @@ class Student(models.Model):
     image = models.ImageField(null=True, blank=True, editable=True, upload_to="images/")
     dob = models.DateField(blank=True, null=True)
     phone = models.CharField(blank=True, max_length=15)
-    email = models.EmailField(max_length=100, blank=True)
-    address = models.CharField(max_length=200, blank=True)
-    city = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
     country = models.CharField(max_length=100, blank=True)
-    gender = models.CharField( max_length=50)
-    feesav = models.IntegerField()
-    dhav = models.IntegerField()
-    health = models.IntegerField()
-    residence = models.IntegerField()
-    fees = models.IntegerField()
-    fees_due = models.DateField()
-    school = models.CharField(max_length=200)
-    program = models.CharField(max_length=100)
-    about = models.CharField(max_length=50)
-    approval = models.CharField(max_length=50)
+    gender = models.CharField(blank=True, null=True, max_length=50)
+    feesav = models.IntegerField(blank=True, null=True)
+    dhav = models.IntegerField(blank=True, null=True)
+    health = models.IntegerField(blank=True, null=True)
+    residence = models.IntegerField(blank=True, null=True)
+    fees = models.IntegerField(blank=True, null=True)
+    fees_due = models.DateField(blank=True, null=True)
+    school = models.CharField(blank=True, null=True, max_length=200)
+    program = models.CharField(blank=True, null=True, max_length=100)
+    about = models.CharField(blank=True, null=True, max_length=50)
+    approval = models.CharField(max_length=50, default="Pending")
     confidence = models.FloatField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add = True )
     updated = models.DateTimeField(auto_now = True)
@@ -40,10 +41,10 @@ class Sponsor(models.Model):
     image = models.ImageField(null=True, blank=True, editable=True, upload_to="images/")
     dob = models.DateField(blank=True, null=True)
     phone = models.CharField(blank=True, max_length=15)
-    email = models.EmailField(max_length=100, blank=True)
-    address = models.CharField(max_length=200, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
     created = models.DateTimeField(auto_now_add = True )
     updated = models.DateTimeField(auto_now = True)
 

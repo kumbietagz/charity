@@ -1,0 +1,89 @@
+{% extends 'donate/side.html' %}
+
+
+{% block logo %}<h3>Sponsor</h3>{% endblock %}
+{% block nav %}
+<li><a href="{% url 'donate:sponsor' %}"><div>Profile</div></a></li>
+<li><a href="{% url 'donate:donations' %}"><div>Donations</div></a></li>
+<div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
+<li><a href="{% url 'donate:sponsor-logout' %}"><div>Logout</div></a></li>
+{% endblock %}
+
+{% block body %}
+
+
+<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap bg-light">
+
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-10 col-md-10">
+							<div class="card shadow-sm">
+								<div class="card-header">
+									<h4 class="mb-0">Fund Student</h4>
+								</div>
+								<div class="card-body">
+
+									<div class="form-windget">
+
+										<!--<div class="form-result"></div>
+
+										<div class="form-process css3-spinner">
+											<div class="css3-spinner-double-bounce1"></div>
+											<div class="css3-spinner-double-bounce2"></div>
+										</div>-->
+
+										<form class="nobottommargin" id="" name="template-contactform" action method="post" enctype="multipart/form-data">
+											
+											{% csrf_token %}
+											<div class="row">
+                                                
+                                                <div class="col-lg-12 col-md-12 bottommargin-sm">
+													<label for="template-contactform-budget">Fees:</label>
+													<div class="input-group">
+													<div class="input-group-prepend">
+														<span class="input-group-text">$</span>
+													</div>
+
+
+													<input id="template-contactform-budget" name="claim" value='{{claims.claimed}}' type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Enter Claimed Amount" required>
+														<div class="input-group-append">
+															<span class="input-group-text">.00</span>
+														</div>
+													</div>
+												</div>
+	
+												<div class="col-12 hidden">
+													<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" />
+												</div>
+												<div class="col-12">
+													<button type="submit" name="template-contactform-submit" class="btn btn-secondary btn-block btn-lg">Donate</button>
+												</div>
+
+												<input type="hidden" name="prefix" value="template-contactform-">
+
+											</div>
+
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+
+
+
+
+{% endblock %}
+{% block age%}53{% endblock%}
