@@ -114,10 +114,10 @@
 
 			jQuery(".range_01").ionRangeSlider({
 				grid: true,
-				min: 0,
-				max: 70,
-				from: {% block age%} {% endblock%},
-				prefix: "Age ",
+				min: 1,
+				max: 5,
+				from: {% block fees%} {% endblock%},
+				prefix: "fees ",
 				max_postfix: "+"
 			});
 
@@ -125,8 +125,17 @@
 				grid: true,
 				min: 1,
 				max: 5,
-				from: 3,
-				prefix: "rate ",
+				from: {% block dh%} {% endblock%},
+				prefix: "dh ",
+				max_postfix: "+"
+			});
+
+			jQuery(".range_03").ionRangeSlider({
+				grid: true,
+				min: 1,
+				max: 5,
+				from: {% block health%} {% endblock%},
+				prefix: "health ",
 				max_postfix: "+"
 			});
 

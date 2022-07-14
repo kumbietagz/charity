@@ -5,6 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import permission_required
+from datetime import datetime as d
+from django.utils.dateparse import parse_date
+import joblib
+forest_job = joblib.load('ML/randForest.pkl')
+
 
 # Create your views here.
 
@@ -111,9 +116,57 @@ def login_register(request):
 def contact(request):
     return render(request, 'donate/contact.html')
 
+
+# student view
 @permission_required('donate.student', login_url='donate:student-login')
 def student(request):
-    return render(request, 'donate/student.html')
+    student = Student.objects.get(user=request.user)
+    date = d.now()
+
+    if request.method == 'POST':
+        student.first_name = request.POST['first']
+        student.last_name = request.POST['last']
+        student.email = request.POST['email']
+        student.phone = request.POST['phone']
+        student.dob = request.POST['dob']
+        student.address = request.POST['address']
+        student.city = request.POST['city']
+        student.country = request.POST['country']
+        student.gender = request.POST['gender']
+        student.residence = request.POST['residence']
+        student.feesav = request.POST['feesav']
+        student.dhav = request.POST['dhav']
+        student.health = request.POST['health']
+        student.fees = request.POST['fees']
+        student.feesdue = request.POST['feesdue']
+        student.institute = request.POST['institute']
+        student.program = request.POST['program']
+        student.about = request.POST['about']
+        age = date.year - parse_date(student.dob).year 
+
+        # classify student with presaved random forest model
+        forest_pred = forest_job.predict([[student.gender, age, student.feesav, student.dhav, student.health, student.residence]])[0]
+        if forest_pred == 1:
+            forest_pred = "Fund Worthy"
+        else:
+            forest_pred = "Not Qualify"
+
+        student.forest = forest_pred
+        
+        for key in request.FILES:
+            if key == "image":
+                student.image = request.FILES["image"]
+
+        if trees_pred and forest_pred == 1:
+            forest_con = forest_job.predict_proba([[student.gender, age, student.feesav, student.dhav, student.health, student.residence]])[0][1]
+            student.confidence = forest_con*100
+        else:
+            forest_con = forest_job.predict_proba([[student.gender, age, student.feesav, student.dhav, student.health, student.residence]])[0][0]
+            student.confidence = forest_con*100
+
+        student.save()
+
+    return render(request, 'donate/student.html', {"student":student})
 
 def fund(request, id):
     return render(request, 'donate/fund.html')

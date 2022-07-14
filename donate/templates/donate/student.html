@@ -43,84 +43,86 @@
 											<div class="row">
                                                 <div class=" col-md-12 col-lg-6 bottommargin-sm">
                                                     <label for="template-contactform-name">First Name<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                    <input type="text" id="template-contactform-name" name="first" value="{{student.first_name}}" class="form-control required" placeholder="Enter your Full Name" />
                                                 </div>
                                                 <div class=" col-md-12 col-lg-6 bottommargin-sm">
                                                     <label for="template-contactform-name">Last Name<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                    <input type="text" id="template-contactform-name" name="last" value="{{student.last_name}}" class="form-control required" placeholder="Enter your Full Name" />
                                                 </div>
 
                                                 <div class="col-lg-6 col-md-12 bottommargin-sm">
                            
                                                     <label  for="template-contactform-upload">Image:</label><br>
                                                     <div id="event_picture" class="kv-file-content">
-                                                    <img src="{{ company.logo.url  }}" >
+														{% if student.image %}
+                                                    <img src="{{student.image.url}}" >
+													{%endif%}
                                                     </div>
-                                                    <input id="id_picture" type="file" name="logo" value="" class="file file-loading" data-show-preview="true" >
+                                                    <input id="id_picture" type="file" name="image" value="" class="file file-loading" data-show-preview="true" >
                                                     
                                                        
                                                 </div>
 
                                                 <div class="form-group col-lg-6 col-md-12">
                                                     <label for="template-contactform-name">Date of Birth:<small class="text-danger">*</small></label>
-                                                    <input type="date" id="template-contactform-name" name="start" value="" class="form-control required"  />
+                                                    <input type="date" id="template-contactform-name" name="dob" value="{{student.dob|date:"Y-m-d" }}" class="form-control required"  />
                                                     </div>
 
                                                 <div class=" col-md-12 col-lg-6 bottommargin-sm">
                                                     <label for="template-contactform-name">Phone:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Phone" />
+                                                    <input type="text" id="template-contactform-name" name="phone" value="{{student.phone}}" class="form-control required" placeholder="Enter your Phone" />
                                                 </div>
                                                 <div class=" col-md-12 col-lg-6 bottommargin-sm">
                                                     <label for="template-contactform-name">Email:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Email" />
+                                                    <input type="text" id="template-contactform-name" name="email" value="{{student.email}}" class="form-control required" placeholder="Enter your Email" />
                                                 </div>
 
 												<div class=" col-md-12 col-lg-12 bottommargin-sm">
                                                     <label for="template-contactform-name">Address:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter Address" />
+                                                    <input type="text" id="template-contactform-name" name="address" value="{{student.address}}" class="form-control required" placeholder="Enter Address" />
                                                 </div>
 	
                                                 <div class=" col-md-12 col-lg-8 bottommargin-sm">
                                                     <label for="template-contactform-name">City:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter City" />
+                                                    <input type="text" id="template-contactform-name" name="city" value="{{student.city}}" class="form-control required" placeholder="Enter City" />
                                                 </div>
 
 												<div class=" col-md-12 col-lg-4 bottommargin-sm">
                                                     <label for="template-contactform-name">Country:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter Country" />
+                                                    <input type="text" id="template-contactform-name" name="country" value="{{student.country}}" class="form-control required" placeholder="Enter Country" />
                                                 </div>
 												
 												<div class="col-md-12 col-lg-6 bottommargin-sm">
 													<label>Gender:</label>
 													<div class="form-check">
-														<input class="form-check-input" type="radio" name="gender" id="template-contactform-radio-label2" value="M" {% if claims.gender == 'M' %}checked {% endif %}>
+														<input class="form-check-input" type="radio" name="gender" id="template-contactform-radio-label2" value="1" {% if student.gender == 1 %}checked {% endif %} required>
 														<label class="form-check-label" for="template-contactform-radio-label2">Male</label>
 													</div>
 													<div class="form-check">
-														<input class="form-check-input" type="radio" name="gender" id="template-contactform-radio-label3" value="F" {% if claims.gender == 'F' %}checked {% endif %}>
+														<input class="form-check-input" type="radio" name="gender" id="template-contactform-radio-label3" value="0" {% if student.gender == 0 %}checked {% endif %}>
 														<label class="form-check-label" for="template-contactform-radio-label3">Female</label>
 													</div>
 												</div>	
 												<div class="col-lg-6 col-md-12 bottommargin-sm">
 													<label for="template-contactform-default-select">Residence Area:</label>
-													<select id="template-contactform-default-select" value='{{claims.description}}' name="description" class="form-control" required>
+													<select id="template-contactform-default-select" value='{{student.residence}}' name="residence" class="form-control" required>
 														<option value="" disabled >Select Type</option>
-														<option value="U" {% if claims.description == 'GYNAECOLOGY/OBSTETRICS' %}selected {% endif %}>Urban</option>
-														<option value="R"  {% if claims.description == 'PAEDIATRICIANS' %}selected {% endif %} >Rural</option>
+														<option value="0" {% if student.residence == 0 %}selected {% endif %}>Urban</option>
+														<option value="1"  {% if student.residence == 1 %}selected {% endif %} >Rural</option>
 													</select>
 												</div>
 												<div class="col-lg-6 col-md-6 bottommargin-sm">
 													<label for="template-contactform-age" class="mb-3 clearfix">Fees paying Average:</label>
-													<input id="template-contactform-age" value='40'name="age" class="range_01 input-range-slider" required/>
+													<input id="template-contactform-age" value='' name="feesav" class="range_01 input-range-slider" required/>
 												</div>
 												<div class="col-lg-6 col-md-6 bottommargin-sm">
 													<label for="template-contactform-age" class="mb-3 clearfix">Dining Hall Purchase Average:</label>
-													<input id="template-contactform-age" value='40'name="age" class="range_01 input-range-slider" required/>
+													<input id="template-contactform-age" value=''name="dhav" class="range_02 input-range-slider" required/>
 												</div>
 
 												<div class="col-lg-6 col-md-6 bottommargin-sm">
 													<label for="template-contactform-age" class="mb-3 clearfix">Health Average:</label>
-													<input id="template-contactform-age" value='40'name="age" class="range_01 input-range-slider" required/>
+													<input id="template-contactform-age" value=''name="health" class="range_03 input-range-slider" required/>
 												</div>
 
 												<div class="col-lg-6 col-md-12 bottommargin-sm">
@@ -131,7 +133,7 @@
 													</div>
 
 
-													<input id="template-contactform-budget" name="claim" value='{{claims.claimed}}' type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Enter Claimed Amount" required>
+													<input id="template-contactform-budget" name="fees" value='{{student.fees}}' type="number" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Enter Claimed Amount" required>
 														<div class="input-group-append">
 															<span class="input-group-text">.00</span>
 														</div>
@@ -140,23 +142,23 @@
 
 												<div class="form-group col-lg-6 col-md-12">
                                                     <label for="template-contactform-name">Fees Due Date:<small class="text-danger">*</small></label>
-                                                    <input type="date" id="template-contactform-name" name="start" value="" class="form-control required"  />
+                                                    <input type="date" id="template-contactform-name" name="feesdue" value="" class="form-control required"  />
                                                     </div>
 											
 											
 
 												<div class=" col-md-12 col-lg-12 bottommargin-sm">
                                                     <label for="template-contactform-name">Institute Name:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                    <input type="text" id="template-contactform-name" name="institute" value="{{student.school}}" class="form-control required" placeholder="Enter your Full Name" />
                                                 </div>
 
 												<div class=" col-md-12 col-lg-12 bottommargin-sm">
                                                     <label for="template-contactform-name">Program Enrolled:<small class="text-danger">*</small></label>
-                                                    <input type="text" id="template-contactform-name" name="name" value="{{company.name}}" class="form-control required" placeholder="Enter your Full Name" />
+                                                    <input type="text" id="template-contactform-name" name="program" value="{{student.program}}" class="form-control required" placeholder="Enter your Full Name" />
                                                 </div>
 												<div class="col-md-12 bottommargin-sm">
 													<label for="exampleFormControlTextarea1">About Student</label>
-													<textarea class="form-control" name="about" id="exampleFormControlTextarea1" rows="3">{{company.about}}</textarea>
+													<textarea class="form-control" name="about" id="exampleFormControlTextarea1" rows="3">{{student.about}}</textarea>
 												</div>
 												<div class="col-12 hidden">
 													<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" />
@@ -187,4 +189,6 @@
 
 
 {% endblock %}
-{% block age%}53{% endblock%}
+{% block fees%}{{student.feesav}}{% endblock%}
+{% block dh%}{{student.dhav}}{% endblock%}
+{% block health%}{{student.health}}{% endblock%}
