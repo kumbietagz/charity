@@ -1,13 +1,12 @@
 {% extends 'donate/side.html' %}
 
 
-{% block logo %}<h3>Assessor</h3>{% endblock %}
+{% block logo %}<h3>Sponsor</h3>{% endblock %}
 {% block nav %}
-<li><a href="{% url 'donate:students' %}"><div>Students</div></a></li>
-<li><a href="{% url 'donate:sponsors' %}"><div>Sponsors</div></a></li>
-<li><a href="{% url 'donate:message' %}"><div>Messages</div></a></li>
+<li><a href="{% url 'donate:sponsor' %}"><div>Profile</div></a></li>
+<li><a href="{% url 'donate:donations' %}"><div>Donations</div></a></li>
 <div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
-<li><a href="{% url 'donate:assessor-logout' %}"><div>Logout</div></a></li>
+<li><a href="{% url 'donate:sponsor-logout' %}"><div>Logout</div></a></li>
 {% endblock %}
 
 {% block body %}
@@ -26,7 +25,7 @@
 						<div class="col-lg-7 col-md-10">
 							<div class="card shadow-sm">
 								<div class="card-header">
-									<h4 class="mb-0 center" center>Sponsor Detail</h4>
+									<h4 class="mb-0 center" center>Student Detail</h4>
 								</div>
 								<div class="card-body">
 
@@ -46,60 +45,79 @@
 
 												<div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label for="inputEmail4">Sponsor First Name</label>
-                                                        <h6>{{sponsor.first_name}}</h6>
+                                                        <label for="inputEmail4">Student First Name</label>
+                                                        <h6>{{student.first_name}}</h6>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="inputPassword4">Sponsor Last Name</label>
-                                                        <h6>{{sponsor.last_name}}</h6>
+                                                        <label for="inputPassword4">Student Last Name</label>
+                                                        <h6>{{student.last_name}}</h6>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    {% if sponsor.image %}
+                                                    {% if student.image %}
                                                     <div class="form-group col-md-6">
                                                         <label for="inputEmail4">Display Picture</label>
-                                                        <img src='{{sponsor.image.url}}'>
+                                                        <img src='{{student.image.url}}'>
                                                     </div>
                                                     {% endif %}
-
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label for="inputPassword4">Phone</label>
-                                                        <h6>{{sponsor.phone}}</h6>
+                                                        <label for="inputEmail4">Email</label>
+                                                        <h6>{{student.email}}</h6>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label for="inputEmail4">Email</label>
-                                                        <h6>{{sponsor.email}}</h6>
+                                                        <label for="inputEmail4">Phone</label>
+                                                        <h6>{{student.phone}}</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputPassword4">School</label>
+                                                        <h6>{{student.school}}</h6>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputEmail4">Program</label>
+                                                        <h6>{{student.program}}</h6>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="inputPassword4">Address</label>
-                                                        <h6>{{sponsor.address}}</h6>
+                                                        <h6>{{student.address}}</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputPassword4">City</label>
+                                                        <h6>{{student.city}}</h6>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="inputPassword4">Country</label>
+                                                        <h6>{{student.country}}</h6>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="inputPassword4">City</label>
-                                                        <h6>{{sponsor.city}}</h6>
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label for="inputPassword4">Country</label>
-                                                        <h6>{{sponsor.country}}</h6>
+                                                        <label for="inputPassword4">About Student</label>
+                                                        <h6>{{student.about}}</h6>
                                                     </div>
                                                 </div>
                                                 
-                   
+                                           
+                
+                                                </div>
+                                  
     
-
+          
 
 												
 												
 												<div class="col-12 hidden">
 													<input type="text" id="template-contactform-botcheck" name="template-contactform-botcheck" value="" />
 												</div>
-												
+								
+
 												<input type="hidden" name="prefix" value="template-contactform-">
 
 											</div>

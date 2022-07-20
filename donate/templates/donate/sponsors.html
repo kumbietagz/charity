@@ -5,10 +5,58 @@
 {% block nav %}
 <li><a href="{% url 'donate:students' %}"><div>Students</div></a></li>
 <li><a href="{% url 'donate:sponsors' %}"><div>Sponsors</div></a></li>
+<li><a href="{% url 'donate:message' %}"><div>Messages</div></a></li>
 <div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
 <li><a href="{% url 'donate:assessor-logout' %}"><div>Logout</div></a></li>
 {% endblock %}
-
 {% block body %}
+
+
+
+
+<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap bg-light">
+
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-7 col-md-10">
+	<!-- Top Search
+						============================================= -->
+						<div id="top-search-input topmargin">
+							<form action="{% url 'donate:search' %}" method="get">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text"><i class="icon-line-search"></i></div>
+									</div>
+									<input type="text" name="q" class="form-control" value="" placeholder="Search..">
+								</div>
+							</form>
+
+                            
+						</div><!-- #top-search end -->
+<div class="right-margin list-group">
+    {% for sponsor in sponsors %}
+    <a href="{% url 'donate:sponsor-detail' sponsor.id %}" class="leftmargin rightmargin list-group-item list-group-item-action flex-column align-items-end col-10">
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-2">{{sponsor.first_name}} {{sponsor.last_name}}</h4>
+            <small class="text-muted">{{sponsor.updated_at}}</small>
+        </div>
+        <p class="mb-1">{{sponsor.phone}}</p>
+        <small class="text-muted">{{sponsor.email}}</small>
+          
+            
+    </a>
+    {% endfor %}
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</section>
 
 {% endblock %}

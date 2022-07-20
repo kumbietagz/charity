@@ -54,8 +54,8 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="Foundation Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="Foundation Logo"></a>
+						<a href="{% url 'donate:index' %}" class="standard-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="Foundation Logo"></a>
+						<a href="{% url 'donate:index' %}" class="retina-logo" data-dark-logo="{% static 'donate/images/logo.png' %}"><img src="{% static 'donate/images/logo.png' %}" alt="Foundation Logo"></a>
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
@@ -65,10 +65,10 @@
 
 						<ul class="align-self-start">
 							<li><span class="menu-bg col-auto align-self-start d-flex"></span></li>
-							<li class="active"><a href="#"><div>Home</div></a></li>
-							<li><a href="#"><div>About</div></a></li>
+							<li class="active"><a href="{% url 'donate:index' %}"><div>Home</div></a></li>
+							<li><a href="{% url 'donate:about' %}"><div>About</div></a></li>
 							
-							<li><a href="#"><div>Contact</div></a></li>
+							<li><a href="{% url 'donate:contact' %}"><div>Contact</div></a></li>
 						</ul>
 
 						<ul class="not-dark align-self-end">
@@ -109,7 +109,6 @@
 							<div class="container clearfix">
 								<div class="slider-caption">
 									<h2 class="nott" data-animate="fadeInUp">Welcome to Foundation</h2>
-									<p style="font-size: 17px;" data-animate="fadeInUp" data-delay="200">Seamlessly transition standardized channels whereas maintainable web services. Competently unleash exceptional portals through timely infomediaries.</p>
 									<a href="#" data-animate="fadeInUp" data-delay="400" class="button button-rounded button-large button-light text-dark bgcolor shadow nott ls0 ml-0 mt-4">Know More</a>
 								</div>
 							</div>
@@ -251,110 +250,33 @@
 
 					<div class="owl-carousel owl-carousel-full image-carousel carousel-widget topmargin-sm" data-stage-padding="20" data-margin="10" data-center="true" data-loop="true" data-nav="true" data-autoplay="500000" data-speed="400" data-pagi="true" data-items-xs="1" data-items-sm="2" data-items-md="2" data-items-lg="3" data-items-xl="4">
 
+			
+						{% for student in students %}
 						<div class="oc-item tleft">
-							<img src="{% static 'donate/images/3.webp' %}" alt="Image 1" class="rounded">
-							<div class="oc-desc d-flex flex-column justify-content-center shadow-lg">
-								<small class="uppercase t400 ls1 color mb-2 d-block">Homeless</small>
-								<h3 class="mb-3"><a href="#">Clean Water for All</a></h3>
-								<ul class="skills mb-3">
-									<li data-percent="57">
-										<div class="progress">
-											<div class="progress-percent">
-												<div class="counter counter-inherit">
-													$<span data-from="0" data-to="119700" data-refresh-interval="10" data-speed="1100" data-comma="true"></span> Donated of $210,000
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-								
-								<a href="#" class="button button-rounded button-border nott ls0 t500 m-0 d-flex align-self-start">Donate Now</a>
-							</div>
-						</div>
-
-						<div class="oc-item tleft">
-							<img src="{% static 'donate/images/3.webp' %}" alt="Image 1" class="rounded">
+							<img src="{% if student.image %}{{student.image.url}}{% else %}{% static 'donate/images/avatar.jpg' %}{% endif %}" alt="Image 1" class="rounded">
 							<div class="oc-desc d-flex flex-column justify-content-center shadow-lg">
 								<small class="uppercase t400 ls1 color mb-2 d-block">Education</small>
-								<h3 class="mb-3"><a href="#">Education for All</a></h3>
+								<h3 class="mb-3"><a href="#">{{student.first_name}} {{student.last_name}}</a></h3>
 								<ul class="skills mb-3">
-									<li data-percent="45">
+									<li data-percent="{{student.progress}}">
 										<div class="progress">
 											<div class="progress-percent">
 												<div class="counter counter-inherit">
-													$<span data-from="0" data-comma="true" data-to="76500" data-refresh-interval="10" data-speed="1100"></span> Donated of $170,000
+													$<span data-from="0" data-comma="true" data-to="{{student.crowdfund}}" data-refresh-interval="10" data-speed="1100"></span> Donated of ${{student.fees}}
 												</div>
 											</div>
 										</div>
 									</li>
 								</ul>
 								
-								<a href="#" class="button button-rounded button-border nott ls0 t500 m-0 d-flex align-self-start">Donate Now</a>
+								<a href="{% url 'donate:fund' student.id %}" class="button button-rounded button-border nott ls0 t500 m-0 d-flex align-self-start">Donate Now</a>
 							</div>
 						</div>
+						{% endfor %}
+	
 
-						<div class="oc-item tleft">
-							<img src="{% static 'donate/images/3.webp' %}" alt="Image 1" class="rounded">
-							<div class="oc-desc d-flex flex-column justify-content-center shadow-lg">
-								<small class="uppercase t400 ls1 color mb-2 d-block">Food</small>
-								<h3 class="mb-3"><a href="#">Food for Hungry</a></h3>
-								<ul class="skills mb-3">
-									<li data-percent="51">
-										<div class="progress">
-											<div class="progress-percent">
-												<div class="counter counter-inherit">
-													$<span data-from="0" data-comma="true" data-to="81600" data-refresh-interval="10" data-speed="1100"></span> Donated of $160,000
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-								
-								<a href="#" class="button button-rounded button-border nott ls0 t500 m-0 d-flex align-self-start">Donate Now</a>
-							</div>
-						</div>
 
-						<div class="oc-item tleft">
-							<img src="{% static 'donate/images/3.webp' %}" alt="Image 1" class="rounded">
-							<div class="oc-desc d-flex flex-column justify-content-center shadow-lg">
-								<small class="uppercase t400 ls1 color mb-2 d-block">Medicine</small>
-								<h3 class="mb-3"><a href="#">Help from Injuries</a></h3>
-								<ul class="skills mb-3">
-									<li data-percent="45">
-										<div class="progress">
-											<div class="progress-percent">
-												<div class="counter counter-inherit">
-													$<span data-from="0" data-comma="true" data-to="86800" data-refresh-interval="10" data-speed="1100"></span> Donated of $310,000
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-							
-								<a href="#" class="button button-rounded button-border nott ls0 t500 m-0 d-flex align-self-start">Donate Now</a>
-							</div>
-						</div>
-
-						<div class="oc-item tleft">
-							<img src="{% static 'donate/images/3.webp' %}" alt="Image 1" class="rounded">
-							<div class="oc-desc d-flex flex-column justify-content-center shadow-lg">
-								<small class="uppercase t400 ls1 color mb-2 d-block">Education</small>
-								<h3 class="mb-3"><a href="#">Education for All</a></h3>
-								<ul class="skills mb-3">
-									<li data-percent="45">
-										<div class="progress">
-											<div class="progress-percent">
-												<div class="counter counter-inherit">
-													$<span data-from="0" data-comma="true" data-to="76500" data-refresh-interval="10" data-speed="1100"></span> Donated of $170,000
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-							
-								<a href="#" class="button button-rounded button-border nott ls0 t500 m-0 d-flex align-self-start">Donate Now</a>
-							</div>
-						</div>
+					
 
 					</div>
 				</div>
@@ -397,7 +319,7 @@
 						<div class="row justify-content-center mb-5">
 							<div class="col-md-7 center">
 								<div class="heading-block nobottomborder mb-4">
-									<h2 class="mb-4 nott">Happy Volunteers</h2>
+									<h2 class="mb-4 nott">Happy Sponsors</h2>
 								</div>
 								<div class="svg-line bottommargin-sm clearfix">
 									<img src="{% static 'donate/theme/images/divider-1.svg' %}" alt="svg divider" height="20">
@@ -406,93 +328,27 @@
 							</div>
 						</div>
 						<div class="row justify-content-around">
+
+							{% for sponsor in sponsors %}
+
 							<div class="col-lg-2 col-md-4 col-6">
 								<div class="team ohidden">
 									<div class="team-image">
-										<img src="{% static 'donate/theme/images/volunteers/2.jpg' %}" alt="Penny Tool">
+									<img src="{% if student.image %}{{student.image.url}}{% else %}{% static 'donate/images/avatar.jpg' %}{% endif %}" alt="Penny Tool">
 									</div>
 									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Penny Tool<small>Volunteers</small></h4>
-									</div>
-								</div>
-								<div class="team mt-5">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/6.jpg" alt="Piff Jenkins">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Piff Jenkins<small>Volunteers</small></h4>
+										<h4 class="team-title pt-3 mb-0 t500 nott">{{sponsor.first_name}} {{sponsor.last_name}}<small>Sponsors</small></h4>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-2 col-md-4 col-6 mt-4">
-								<div class="team">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/2.jpg" alt="Rodney Artich">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Rodney Artich<small>Volunteers</small></h4>
-									</div>
-								</div>
-								<div class="team mt-5">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/7.jpg" alt="Weir Doe">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Weir Doe<small>Volunteers</small></h4>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-2 col-md-4 col-6">
-								<div class="team">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/3.jpg" alt="Jackson Pot">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Jackson Pot<small>Volunteers</small></h4>
-									</div>
-								</div>
-								<div class="team mt-5">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/8.jpg" alt="Phillip Anthropy ">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Phillip Anthropy <small>Volunteers</small></h4>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-2 col-md-4 col-6 mt-5">
-								<div class="team">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/4.jpg" alt="Eric Widget">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Eric Widget<small>Volunteers</small></h4>
-									</div>
-								</div>
-								<div class="team mt-5">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/9.jpg" alt="Giles Posture">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Giles Posture<small>Volunteers</small></h4>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-2 col-md-4 col-6 mt-1">
-								<div class="team">
-									<div class="team-image">
-										<img src="demos/nonprofit/images/volunteers/5.jpg" alt="Gunther Beard">
-									</div>
-									<div class="team-desc">
-										<h4 class="team-title pt-3 mb-0 t500 nott">Gunther Beard<small>Volunteers</small></h4>
-									</div>
-								</div>
-								<div class="team full-border imagescalein mt-5">
-									<a href="#" class="team-image">
-										<img src="demos/nonprofit/images/volunteers/10.jpg" alt="Apply Volunteer" class="noradius">
-									</a>
-								</div>
-							</div>
+
+							
+
+							{%endfor%}
+
+				
+
+							
 						</div>
 					</div>
 				</div>
@@ -534,7 +390,7 @@
 
 						<div class="col-md-6 d-md-flex flex-md-column align-items-md-end mt-4 mt-md-0">
 							<div class="copyrights-menu copyright-links clearfix">
-								<a href="#">About</a>/<a href="#">Contact</a>
+								<a href="{% url 'donate:about' %}">About</a>/<a href="{% url 'donate:contact' %}">Contact</a>/<a href="{% url 'donate:assessor-login' %}">admin</a>
 							</div>
 						</div>
 					</div>
@@ -569,24 +425,25 @@
 							<i class="icon-line-mail h1 color"></i>
 							<h4 class="t400 mb-0 font-body">Thank You for Contact Us! Our Team will contact you asap on your email Address.</h4>
 						</div>
-						<form class="mb-0" id="floating-contact" action="include/form.php" method="post" enctype="multipart/form-data">
+						<form class="mb-0" id="floating-contact" action="{% url 'donate:index' %}" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text nobg"><i class="icon-user-alt"></i></span>
 								</div>
-								<input type="text" name="floating-contact-name" id="floating-contact-name" class="form-control required" value="" placeholder="Enter your Full Name">
+								<input type="text" name="name" id="floating-contact-name" class="form-control required" value="" placeholder="Enter your Full Name">
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text nobg"><i class="icon-at"></i></span>
 								</div>
-								<input type="email" name="floating-contact-email" id="floating-contact-email" class="form-control required" value="" placeholder="Enter your Email Address">
+								<input type="email" name="email" id="floating-contact-email" class="form-control required" value="" placeholder="Enter your Email Address">
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text nobg"><i class="icon-comment21"></i></span>
 								</div>
-								<textarea name="floating-contact-message" id="floating-contact-message" class="form-control required" cols="30" rows="4"></textarea>
+								<textarea name="text" id="floating-contact-message" class="form-control required" cols="30" rows="4"></textarea>
 							</div>
 							<input type="hidden" id="floating-contact-botcheck" name="floating-contact-botcheck" value="" />
 							<button type="submit" name="floating-contact-submit" class="btn btn-dark btn-block py-2">Send Message</button>

@@ -19,7 +19,7 @@ side-header
 					============================================= -->
 					<div id="logo" class="nobottomborder">
 					
-                        {% block logo %}{% endblock %}
+                        <a href="{% url 'donate:index' %}"> {% block logo %}{% endblock %}</a>
                         
 					</div><!-- #logo end -->
 
@@ -44,7 +44,7 @@ side-header
 			</div>
 
 		</header><!-- #header end -->
-
-    {% block body %}
-    {% endblock %}
+		{% block body %}
+		{% endblock %}
+ 
     {% endblock %}

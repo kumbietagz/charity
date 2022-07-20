@@ -1,17 +1,24 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
-from .models import Sponsor, Student, Assessor, Fund
+from django.contrib.auth.models import User, Permission
+from .models import Sponsor, Student, Assessor, Fund, Message
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import permission_required
+from django.db.models import Avg, Count, Sum
+from django.db.models import IntegerField
 from datetime import datetime as d
 from django.utils.dateparse import parse_date
 import joblib
+
 forest_job = joblib.load('ML/randForest.pkl')
 
 
 # Create your views here.
+@permission_required('donate.assessor', login_url='donate:assessor-login')
+def messages(request):
+    messages = Message.objects.all()
+    return render(request, 'donate/message.html', {'messages':messages})
 
 def student_login(request):
     message = ""
@@ -26,6 +33,20 @@ def student_login(request):
                 return HttpResponseRedirect(reverse("donate:student"))
             return render(request, "donate/student_login.html", {"message":message})
     return render(request, "donate/student_login.html", {"message":message})
+
+def assessor_login(request):
+    message = ""
+    if request.method == "POST":
+            username = request.POST["username"]
+            password = request.POST["password"]
+            user = authenticate(request, username=username, password=password)
+            message = "Incorrect username or password."
+            if user is not None and user.has_perm('donate.assessor'):
+                login(request, user)
+                return HttpResponseRedirect(reverse("donate:students"))
+            return render(request, "donate/assessor_login.html", {"message":message})
+    return render(request, "donate/assessor_login.html", {"message":message})
+
 
 def sponsor_login(request):
     message = ""
@@ -96,11 +117,21 @@ def sponsor_register(request):
 def assess(request, id):
     return render(request, 'donate/assess.html')
 
+@permission_required('donate.assessor', login_url='donate:assessor-login')
 def sponsor_detail(request, id):
-    return render(request, 'donate/sponsor_detail.html')
+    sponsor = Sponsor.objects.get(id = id)
+    return render(request, 'donate/sponsor_detail.html', {'sponsor':sponsor}) 
 
 def index(request):
-    return render(request, 'donate/index.html')
+    students = Student.objects.filter(approval="Approved")
+    sponsors = Sponsor.objects.all()
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        text = request.POST['text']
+        message = Message.objects.create(name = name, email=email, text=text)
+        message.save()
+    return render(request, 'donate/index.html', {'students':students, 'sponsors':sponsors})
     
 
 def about(request):
@@ -108,12 +139,34 @@ def about(request):
 
 @permission_required('donate.sponsor', login_url='donate:sponsor-login')
 def sponsor(request):
-    return render(request, 'donate/sponsor.html')
+    sponsor = Sponsor.objects.get(user=request.user)
+    if request.method == 'POST':
+        sponsor.first_name = request.POST['first']
+        sponsor.last_name = request.POST['last']
+        sponsor.email = request.POST['email']
+        sponsor.phone = request.POST['phone']
+        sponsor.dob = request.POST['dob']
+        sponsor.address = request.POST['address']
+        sponsor.city = request.POST['city']
+        sponsor.country = request.POST['country']      
+           
+        for key in request.FILES:
+            if key == "image":
+                student.image = request.FILES["image"]
+        
+    return render(request, 'donate/sponsor.html', {'sponsor':sponsor})
+
 
 def login_register(request):
     return render(request, 'donate/login_register.html')
 
 def contact(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        text = request.POST['text']
+        message = Message.objects.create(name = name, email=email, text=text)
+        message.save()
     return render(request, 'donate/contact.html')
 
 
@@ -143,6 +196,7 @@ def student(request):
         student.program = request.POST['program']
         student.about = request.POST['about']
         age = date.year - parse_date(student.dob).year 
+        student.age = age
 
         # classify student with presaved random forest model
         forest_pred = forest_job.predict([[student.gender, age, student.feesav, student.dhav, student.health, student.residence]])[0]
@@ -157,37 +211,83 @@ def student(request):
             if key == "image":
                 student.image = request.FILES["image"]
 
-        if trees_pred and forest_pred == 1:
+        if forest_pred == 'Fund Worthy':
             forest_con = forest_job.predict_proba([[student.gender, age, student.feesav, student.dhav, student.health, student.residence]])[0][1]
+            
             student.confidence = forest_con*100
         else:
             forest_con = forest_job.predict_proba([[student.gender, age, student.feesav, student.dhav, student.health, student.residence]])[0][0]
             student.confidence = forest_con*100
 
         student.save()
-
     return render(request, 'donate/student.html', {"student":student})
 
+@permission_required('donate.sponsor', login_url='donate:sponsor-login')
 def fund(request, id):
+    student = Student.objects.get(id=id)
+    sponsor = Sponsor.objects.get(user=request.user)
+    if request.method == 'POST':
+        
+        amount = request.POST['amount']
+        fund = Fund.objects.create(sponsor=sponsor, student=student, amount=amount)     
+    amount_sum = Fund.objects.filter(student = student).aggregate( Sum('amount', output_field=IntegerField()))
+    student.crowdfund = amount_sum['amount__sum']
+    student.progress = (student.crowdfund/student.fees)*100
+    if student.progress > 100:
+        student.progress = 100
+
+    student.save()
+
+    print(amount_sum['amount__sum'])
+
+    print(student.crowdfund)
+
+
     return render(request, 'donate/fund.html')
 
+@permission_required('donate.assessor', login_url='donate:assessor-login')
 def students(request):
-    return render(request, 'donate/students.html')
+    students = Student.objects.all()
+    return render(request, 'donate/students.html', {'students':students})
 
+def stud_detail(request, id):
+    student = Student.objects.get(id=id)
+    return render(request, 'donate/stud_detail.html', {'student':student})
+
+def spons_detail(request, id):
+    sponsor = Sponsor.objects.get(id=id)
+    return render(request, 'donate/spons_detail.html', {'sponsor':sponsor})
+
+@permission_required('donate.assessor', login_url='donate:assessor-login')
 def sponsors(request):
-    return render(request, 'donate/students.html')
+    sponsors = Sponsor.objects.all()
+        
+    return render(request, 'donate/sponsors.html', {'sponsors':sponsors})
 
 def student_detail(request, id):
-    return render(request, 'donate/student_detail.html')
+    student = Student.objects.get(id=id)
+    if request.method == "POST":
+        student.approval = request.POST['approval']
+        student.save()
+    return render(request, 'donate/student_detail.html', {'student':student})
 
+@permission_required('donate.assessor', login_url='donate:assessor-login')
 def assessor(request):
-    return render(request, 'donate/assessor.html')
+    students = Student.objects.all()
+    return render(request, 'donate/students.html', {'students':students})
 
+
+@permission_required('donate.sponsor', login_url='donate:sponsor-login')
 def donations(request):
-    return render(request, 'donate/donations.html')
+    sponsor = Sponsor.objects.get(user = request.user)
+    donations = Fund.objects.filter(sponsor = sponsor)
+    return render(request, 'donate/donations.html', {'donations':donations})
 
+@permission_required('donate.student', login_url='donate:student-login')
 def funds(request):
-    return render(request, 'donate/funds.html')
+    student = Student.objects.get(user = request.user)
+    funds = Fund.objects.filter(student = student)
+    return render(request, 'donate/funds.html', {'funds':funds})
 
 def search(request, k):
     return render(request, 'donate/search.html')
@@ -206,6 +306,6 @@ def sponsor_logout(request):
 
 def assessor_logout(request):
     logout(request)
-    return render(request, "donate/login.html",{
+    return render(request, "donate/assessor_login.html",{
         "message": "Logged out",
     })

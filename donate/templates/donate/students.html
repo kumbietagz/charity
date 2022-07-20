@@ -5,10 +5,24 @@
 {% block nav %}
 <li><a href="{% url 'donate:students' %}"><div>Students</div></a></li>
 <li><a href="{% url 'donate:sponsors' %}"><div>Sponsors</div></a></li>
+<li><a href="{% url 'donate:message' %}"><div>Messages</div></a></li>
 <div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
 <li><a href="{% url 'donate:assessor-logout' %}"><div>Logout</div></a></li>
 {% endblock %}
 {% block body %}
+
+
+
+<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap bg-light">
+
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-7 col-md-10">
 	<!-- Top Search
 						============================================= -->
 						<div id="top-search-input topmargin">
@@ -20,32 +34,41 @@
 									<input type="text" name="q" class="form-control" value="" placeholder="Search..">
 								</div>
 							</form>
+
+                            
 						</div><!-- #top-search end -->
-<div class="list-group">
-    {% for claim in claims %}
-    <a href="{% url 'donate:student' student.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+<div class="right-margin list-group">
+    {% for student in students %}
+    <a href="{% url 'donate:student-detail' student.id %}" class="list-group-item list-group-item-action flex-column  ">
         <div class="d-flex w-100 justify-content-between">
-            <h4 class="mb-2">{{claim.doctor.name}}</h4>
-            <small class="text-muted">{{claim.updated_at}}</small>
+            <h4 class="mb-2">{{student.first_name}} {{student.last_name}}</h4>
+            <small class="text-muted">{{student.updated_at}}</small>
         </div>
-        <p class="mb-1">${{claim.claimed}}</p>
+        <p class="mb-1">${{student.fees}}</p>
         <small class="text-muted">Approval: 
-            {% if claim.approval == "Approved"%}
+            {% if student.approval == "Approved"%}
             <span class="badge badge-pill badge-success">Approved</span>
-            {% elif claim.approval == "Pending" %}
+            {% elif student.approval == "Pending" %}
             <span class="badge badge-pill badge-warning">Pending</span>
             {% else %}
             <span class="badge badge-pill badge-danger">Rejected</span>
             
             {% endif %}</small>
-            {% if claim.trees == "Genuine" and claim.forest == "Genuine" %}
-            <span class="badge badge-secondary float-right badge-success" style="margin-top: 3px;">Genuine {{claim.confidence|floatformat:0}}%</span>
+            {% if student.forest == "Fund Worthy" %}
+            <span class="badge badge-secondary float-right badge-success" style="margin-top: 3px;">Fund Worthy {{student.confidence|floatformat:0}}%</span>
             {% else %}
-            <span class="badge badge-secondary float-right badge-warning" style="margin-top: 3px;">Possible Fraud {{claim.confidence|floatformat:0}}%</span>
+            <span class="badge badge-secondary float-right badge-warning" style="margin-top: 3px;">Not Qualify {{student.confidence|floatformat:0}}%</span>
             {% endif %}
             
     </a>
     {% endfor %}
 </div>
+
+</div>
+</div>
+</div>
+</div>
+</section
+
 
 {% endblock %}

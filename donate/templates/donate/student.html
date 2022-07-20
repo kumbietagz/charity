@@ -122,7 +122,7 @@
 
 												<div class="col-lg-6 col-md-6 bottommargin-sm">
 													<label for="template-contactform-age" class="mb-3 clearfix">Health Average:</label>
-													<input id="template-contactform-age" value=''name="health" class="range_03 input-range-slider" required/>
+													<input id="template-contactform-age" value='' name="health" class="range_03 input-range-slider" required/>
 												</div>
 
 												<div class="col-lg-6 col-md-12 bottommargin-sm">
@@ -145,7 +145,7 @@
                                                     <input type="date" id="template-contactform-name" name="feesdue" value="" class="form-control required"  />
                                                     </div>
 											
-											
+										
 
 												<div class=" col-md-12 col-lg-12 bottommargin-sm">
                                                     <label for="template-contactform-name">Institute Name:<small class="text-danger">*</small></label>
@@ -189,6 +189,7 @@
 
 
 {% endblock %}
-{% block fees%}{{student.feesav}}{% endblock%}
-{% block dh%}{{student.dhav}}{% endblock%}
-{% block health%}{{student.health}}{% endblock%}
+{% block fees%}{% if student.feesav%}{{student.feesav}}{%else %}5{% endif %}{% endblock%} 
+{% block dh%}{% if student.dhav%}{{student.dhav}}{%else %}5{% endif %}{% endblock%} 
+{% block health%}{% if student.health%}{{student.health}}{%else %}5{% endif %}{% endblock%} 
+

@@ -8,6 +8,7 @@ urlpatterns = [
     path('sponsor_register', views.sponsor_register, name='sponsor-register'),
     path('student_login', views.student_login, name='student-login'),
     path('sponsor_login', views.sponsor_login, name='sponsor-login'),
+    path('assessor_login', views.assessor_login, name='assessor-login'),
     path('about', views.about, name='about'),
     path('sponsor', views.sponsor, name='sponsor'),
     path('register', views.student_register, name='register'),
@@ -20,6 +21,8 @@ urlpatterns = [
     path('sponsors', views.sponsors, name='sponsors'),
     path('assess/<int:id>', views.assess, name='assess'),
     path('funds', views.funds, name='funds'),
+    path('student/<int:id>', views.stud_detail, name='stud-detail'),
+    path('sponsors/<int:id>', views.spons_detail, name='spons-detail'),
     path('fund/<int:id>', views.fund, name='fund'),
     path('search', views.search, name='search'),
     path('sponsor/<int:id>', views.sponsor_detail, name='sponsor-detail'),
@@ -27,5 +30,6 @@ urlpatterns = [
     path('logout_student', views.student_logout, name='student-logout'),
     path('logout_assessor', views.assessor_logout, name='assessor-logout'),
     path('donations', views.donations, name='donations'),
+    path('messages', views.messages, name='message'),
         
     ]

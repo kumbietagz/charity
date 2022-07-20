@@ -1,0 +1,60 @@
+{% extends 'donate/side.html' %}
+
+
+{% block logo %}<h3>Sponsor</h3>{% endblock %}
+{% block nav %}
+<li><a href="{% url 'donate:sponsor' %}"><div>Profile</div></a></li>
+<li><a href="{% url 'donate:donations' %}"><div>Donations</div></a></li>
+<div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
+<li><a href="{% url 'donate:sponsor-logout' %}"><div>Logout</div></a></li>
+{% endblock %}
+
+{% block body %}
+
+
+<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap bg-light">
+
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-10 col-md-10">
+                        
+                            <div class="right-margin list-group">
+                                {% for donation in donations %}
+                                <a href="" class="leftmargin rightmargin list-group-item list-group-item-action flex-column align-items-end col-10">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h4 class="mb-2">{{donation.student.first_name}} {{donation.student.last_name}}</h4>
+                                        <small class="text-muted">{{donation.updated_at}}</small>
+                                    </div>
+                                    <p class="mb-1">${{donation.amount}}</p>
+                                    <small class="text-muted">Campaign: </small>
+                                      
+                    
+                                        {% if donation.student.crowdfund >= donation.student.fees %}
+                                        <span class="badge badge-secondary float-right badge-success" style="margin-top: 3px;">Fundend</span>
+                                        {% else %}
+                                        <span class="badge badge-secondary float-right badge-warning" style="margin-top: 3px;">Ongoing</span>
+                                        {% endif %}
+                                        
+                                </a>
+                                {% endfor %}
+                            </div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+
+
+
+
+{% endblock %}

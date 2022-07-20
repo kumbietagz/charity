@@ -1,0 +1,51 @@
+
+{% extends 'donate/side.html' %}
+
+
+{% block logo %}<h3>Assessor</h3>{% endblock %}
+{% block nav %}
+<li><a href="{% url 'donate:students' %}"><div>Students</div></a></li>
+<li><a href="{% url 'donate:sponsors' %}"><div>Sponsors</div></a></li>
+<li><a href="{% url 'donate:message' %}"><div>Messages</div></a></li>
+<div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
+<li><a href="{% url 'donate:assessor-logout' %}"><div>Logout</div></a></li>
+{% endblock %}
+{% block body %}
+
+<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap bg-light">
+
+				<div class="container">
+
+					<div class="row justify-content-center">
+						<div class="col-lg-10 col-md-10">
+                        
+                            <div class="right-margin list-group">
+                  
+                                {% for message in messages %}
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h4 class="mb-2">{{message.name}}</h4>
+                                        <small class="text-muted">{{message.created}}</small>
+                                    </div>
+                                    <p class="mb-1">{{message.text}}</p>
+                                    <small class="text-muted">{{message.email}}</small>
+                                </a>
+
+                                {% endfor %}
+                          
+                            </div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->
+
+        {% endblock %}

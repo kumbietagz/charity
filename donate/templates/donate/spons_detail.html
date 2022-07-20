@@ -1,13 +1,12 @@
 {% extends 'donate/side.html' %}
 
 
-{% block logo %}<h3>Assessor</h3>{% endblock %}
+{% block logo %}<h3>Student</h3>{% endblock %}
 {% block nav %}
-<li><a href="{% url 'donate:students' %}"><div>Students</div></a></li>
-<li><a href="{% url 'donate:sponsors' %}"><div>Sponsors</div></a></li>
-<li><a href="{% url 'donate:message' %}"><div>Messages</div></a></li>
+<li><a href="{% url 'donate:student' %}"><div>Profile</div></a></li>
+<li><a href="{% url 'donate:funds' %}"><div>Funds</div></a></li>
 <div class="divider divider-center"><a  data-scrollto="#header"><i class="icon-settings"></i></a></div>
-<li><a href="{% url 'donate:assessor-logout' %}"><div>Logout</div></a></li>
+<li><a href="{% url 'donate:student-logout' %}"><div>Logout</div></a></li>
 {% endblock %}
 
 {% block body %}
