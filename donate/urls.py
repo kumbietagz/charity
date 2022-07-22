@@ -31,5 +31,9 @@ urlpatterns = [
     path('logout_assessor', views.assessor_logout, name='assessor-logout'),
     path('donations', views.donations, name='donations'),
     path('messages', views.messages, name='message'),
+    path('search_student', views.search_student, name='search-student'),
+    path('search_sponsor', views.search_sponsor, name='search-sponsor'),
+    path('search_message', views.search_message, name='search-message'),
+
         
     ]

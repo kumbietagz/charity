@@ -29,7 +29,7 @@ class Student(models.Model):
     school = models.CharField(blank=True, null=True, max_length=200)
     program = models.CharField(blank=True, null=True, max_length=100)
     about = models.CharField(blank=True, null=True, max_length=500)
-    forest = models.CharField(max_length=50, null=True, blank=True)
+    forest = models.CharField(default='Not Worthy', max_length=50)
     approval = models.CharField(max_length=50, default="Pending")
     confidence = models.FloatField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add = True )

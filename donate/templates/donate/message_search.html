@@ -13,7 +13,6 @@
 
 
 
-
 <!-- Content
 		============================================= -->
 		<section id="content">
@@ -27,7 +26,7 @@
 	<!-- Top Search
 						============================================= -->
 						<div id="top-search-input topmargin">
-							<form action="{% url 'donate:search-sponsor' %}" method="get">
+							<form action="{% url 'donate:search-message' %}" method="get">
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<div class="input-group-text"><i class="icon-line-search"></i></div>
@@ -39,17 +38,16 @@
                             
 						</div><!-- #top-search end -->
 <div class="right-margin list-group">
-    {% for sponsor in sponsors %}
-    <a href="{% url 'donate:sponsor-detail' sponsor.id %}" class="leftmargin rightmargin list-group-item list-group-item-action flex-column align-items-end col-10">
+    {% for message in search %}
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
-            <h4 class="mb-2">{{sponsor.first_name}} {{sponsor.last_name}}</h4>
-            <small class="text-muted">{{sponsor.updated_at}}</small>
+            <h4 class="mb-2">{{message.name}}</h4>
+            <small class="text-muted">{{message.created}}</small>
         </div>
-        <p class="mb-1">{{sponsor.phone}}</p>
-        <small class="text-muted">{{sponsor.email}}</small>
-          
-            
+        <p class="mb-1">{{message.text}}</p>
+        <small class="text-muted">{{message.email}}</small>
     </a>
+
     {% endfor %}
 </div>
 
@@ -57,6 +55,7 @@
 </div>
 </div>
 </div>
-</section>
+</section
+
 
 {% endblock %}

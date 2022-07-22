@@ -10,11 +10,30 @@ from django.db.models import IntegerField
 from datetime import datetime as d
 from django.utils.dateparse import parse_date
 import joblib
+from django.db.models import Q
 
 forest_job = joblib.load('ML/randForest.pkl')
 
 
 # Create your views here.
+
+def search_student(request):
+    query = request.GET["q"]
+    search = Student.objects.filter(Q(first_name__icontains=query)|Q(last_name__icontains=query)|Q(forest__icontains=query) | Q(approval__icontains=query)  )
+    return render(request, "donate/student_search.html", {"search":search})
+
+def search_sponsor(request):
+    query = request.GET["q"]
+    search = Sponsor.objects.filter(Q(first_name__icontains=query)|Q(last_name__icontains=query)|Q(address__icontains=query) | Q(city__icontains=query) | Q(country__icontains=query)  )
+    return render(request, "donate/sponsor_search.html", {"search":search})
+    
+
+
+def search_message(request):
+    query = request.GET["q"]
+    search = Message.objects.filter(Q(name__icontains=query)|Q(text__icontains=query)  )
+    return render(request, "donate/message_search.html", {"search":search})
+
 @permission_required('donate.assessor', login_url='donate:assessor-login')
 def messages(request):
     messages = Message.objects.all()

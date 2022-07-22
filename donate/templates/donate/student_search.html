@@ -13,7 +13,6 @@
 
 
 
-
 <!-- Content
 		============================================= -->
 		<section id="content">
@@ -27,7 +26,7 @@
 	<!-- Top Search
 						============================================= -->
 						<div id="top-search-input topmargin">
-							<form action="{% url 'donate:search-sponsor' %}" method="get">
+							<form action="{% url 'donate:search-student' %}" method="get">
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<div class="input-group-text"><i class="icon-line-search"></i></div>
@@ -39,15 +38,27 @@
                             
 						</div><!-- #top-search end -->
 <div class="right-margin list-group">
-    {% for sponsor in sponsors %}
-    <a href="{% url 'donate:sponsor-detail' sponsor.id %}" class="leftmargin rightmargin list-group-item list-group-item-action flex-column align-items-end col-10">
+    {% for student in search %}
+    <a href="{% url 'donate:student-detail' student.id %}" class="list-group-item list-group-item-action flex-column  ">
         <div class="d-flex w-100 justify-content-between">
-            <h4 class="mb-2">{{sponsor.first_name}} {{sponsor.last_name}}</h4>
-            <small class="text-muted">{{sponsor.updated_at}}</small>
+            <h4 class="mb-2">{{student.first_name}} {{student.last_name}}</h4>
+            <small class="text-muted">{{student.updated_at}}</small>
         </div>
-        <p class="mb-1">{{sponsor.phone}}</p>
-        <small class="text-muted">{{sponsor.email}}</small>
-          
+        <p class="mb-1">${{student.fees}}</p>
+        <small class="text-muted">Approval: 
+            {% if student.approval == "Approved"%}
+            <span class="badge badge-pill badge-success">Approved</span>
+            {% elif student.approval == "Pending" %}
+            <span class="badge badge-pill badge-warning">Pending</span>
+            {% else %}
+            <span class="badge badge-pill badge-danger">Rejected</span>
+            
+            {% endif %}</small>
+            {% if student.forest == "Fund Worthy" %}
+            <span class="badge badge-secondary float-right badge-success" style="margin-top: 3px;">Fund Worthy {{student.confidence|floatformat:0}}%</span>
+            {% else %}
+            <span class="badge badge-secondary float-right badge-warning" style="margin-top: 3px;">Not Qualify {{student.confidence|floatformat:0}}%</span>
+            {% endif %}
             
     </a>
     {% endfor %}
@@ -57,6 +68,7 @@
 </div>
 </div>
 </div>
-</section>
+</section
+
 
 {% endblock %}
